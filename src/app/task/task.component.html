@@ -1,0 +1,116 @@
+
+
+<div class="container">
+  <h2>Lista de tarefas</h2>
+
+  <form (ngSubmit)="addTask()">
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Título"
+        [(ngModel)]="newTask.title"
+        name="title"
+        required
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <textarea
+        matInput
+        placeholder="Descrição"
+        [(ngModel)]="newTask.description"
+        name="description"
+      ></textarea>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        placeholder="Data de vencimento"
+        [(ngModel)]="newTask.dueDate"
+        name="dueDate"
+        required
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select
+        placeholder="Situação"
+        [(ngModel)]="newTask.status"
+        name="status"
+      >
+        <mat-option value="pending">Pendente</mat-option>
+        <mat-option value="completed">Concluída</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Adicionar</button>
+  </form>
+
+  <div *ngIf="editingTask">
+    <h3>Editar</h3>
+    <form (ngSubmit)="saveEdit()">
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Título"
+          [(ngModel)]="editingTask.title"
+          name="title"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <textarea
+          matInput
+          placeholder="Descrição"
+          [(ngModel)]="editingTask.description"
+          name="description"
+        ></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          placeholder="Data Vencimento"
+          [(ngModel)]="editingTask.dueDate"
+          name="dueDate"
+          required
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select
+          placeholder="Situação"
+          [(ngModel)]="editingTask.status"
+          name="status"
+        >
+          <mat-option value="pending">Pendente</mat-option>
+          <mat-option value="completed">Concluída</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Salvar</button>
+      <button mat-button (click)="cancelEdit()">Cancelar</button>
+    </form>
+  </div>
+
+  <ul>
+    <li *ngFor="let task of tasks">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{ task.title }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ task.description }}</p>
+          <p>Due Date: {{ task.dueDate | date }}</p>
+          <p>Status: {{ task.status }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button (click)="startEdit(task)">Editar</button>
+          <button mat-button color="warn" (click)="deleteTask(task.id)">
+            Deletar
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </li>
+  </ul>
+</div>

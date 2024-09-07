@@ -1,0 +1,63 @@
+mat-form-field {
+  width: 100%;
+}
+
+mat-card {
+  margin: 10px 0;
+}
+
+button {
+  margin-right: 10px;
+}
+/* Centraliza o conteúdo na tela */
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Garante que o container ocupa toda a altura da tela */
+  padding: 20px; /* Adiciona um pouco de espaço ao redor do conteúdo */
+}
+
+/* Ajusta o estilo do formulário e dos campos */
+form {
+  width: 100%;
+  max-width: 600px; /* Define uma largura máxima para o formulário */
+}
+.filter{
+  width: 100%;
+  max-width: 600px;
+}
+
+mat-form-field {
+  width: 100%; /* Faz com que os campos de formulário ocupem toda a largura disponível */
+  margin-bottom: 16px; /* Adiciona espaço entre os campos */
+}
+
+button {
+  margin-top: 16px; /* Adiciona espaço acima dos botões */
+}
+*{
+  font-family: Arial, Helvetica, sans-serif;
+list-style: none;
+}
+/* Estilo padrão para os botões */
+button {
+  margin-top: 16px;
+  transition: background-color 0.4s ease; /* Adiciona uma transição suave para a cor de fundo */
+}
+
+/* Efeito de hover para os botões */
+button:hover {
+  background-color: orange; /* Altere a cor para laranja no estado hover */
+}
+
+/* Estilo para botões do Angular Material */
+.mat-raised-button, .mat-button {
+  transition: background-color 0.4s ease; /* Adiciona uma transição suave para a cor de fundo */
+}
+
+.mat-raised-button:hover, .mat-button:hover {
+  background-color: orange; /* Altere a cor para laranja no estado hover */
+  color: white; /* Ajuste a cor do texto se necessário */
+}
