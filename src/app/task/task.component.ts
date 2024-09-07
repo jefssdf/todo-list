@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Task, TaskService } from '../task.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { MaterialModule } from '../material.module';  // Importa o módulo de Angular Material
+import { MaterialModule } from '../material.module';
 
 @Component({
   selector: 'app-task',
@@ -15,6 +15,7 @@ export class TaskComponent implements OnInit {
   tasks: Task[] = [];
   newTask: Task = { id: 0, title: '', description: '', dueDate: new Date(), status: 'pending' };
   editingTask: Task | null = null;
+  errorMessage: string | null = null;
 
   constructor(private taskService: TaskService) { }
 
@@ -37,7 +38,8 @@ export class TaskComponent implements OnInit {
 
   saveEdit() {
     if (this.editingTask) {
-      this.taskService.editTask(this.editingTask);
+      const updatedTask: Task = { ...this.editingTask, dueDate: new Date(this.editingTask.dueDate) };
+      this.taskService.editTask(updatedTask);
       this.editingTask = null;
     }
   }
@@ -49,6 +51,33 @@ export class TaskComponent implements OnInit {
   deleteTask(taskId: number) {
     this.taskService.deleteTask(taskId);
   }
-}
-// src/app/task.component.ts
 
+  markAsCompleted(task: Task) {
+    const today = new Date();
+    const dueDate = new Date(task.dueDate);
+
+    console.log('Hoje:', today);
+    console.log('Data de vencimento:', dueDate);
+
+    if (dueDate >= today) {
+      console.log('Marcando como concluída');
+      const updatedTask: Task = { ...task, status: 'completed' };
+      this.taskService.editTask(updatedTask);
+      this.errorMessage = null;
+    } else {
+      console.log('Não é possível marcar como concluída');
+      this.errorMessage = 'Não é possível marcar como concluída. A tarefa está fora do prazo.';
+    }
+  }
+
+  getStatusLabel(status: 'pending' | 'completed'): string {
+    switch (status) {
+      case 'pending':
+        return 'Pendente';
+      case 'completed':
+        return 'Concluída';
+      default:
+        return 'Desconhecido';
+    }
+  }
+}

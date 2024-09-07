@@ -61,3 +61,7 @@ button:hover {
   background-color: orange; /* Altere a cor para laranja no estado hover */
   color: white; /* Ajuste a cor do texto se necessário */
 }
+.error-message {
+  color: red;
+  margin-bottom: 20px;
+}

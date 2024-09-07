@@ -1,8 +1,8 @@
-
-
+<!-- task.component.html -->
 <div class="container">
   <h2>Lista de tarefas</h2>
 
+  <!-- Formulário de Adicionar Tarefa -->
   <form (ngSubmit)="addTask()">
     <mat-form-field>
       <input
@@ -46,6 +46,7 @@
     <button mat-raised-button color="primary" type="submit">Adicionar</button>
   </form>
 
+  <!-- Formulário de Edição de Tarefa -->
   <div *ngIf="editingTask">
     <h3>Editar</h3>
     <form (ngSubmit)="saveEdit()">
@@ -70,7 +71,7 @@
         <input
           matInput
           [matDatepicker]="picker"
-          placeholder="Data Vencimento"
+          placeholder="Data de vencimento"
           [(ngModel)]="editingTask.dueDate"
           name="dueDate"
           required
@@ -93,6 +94,7 @@
     </form>
   </div>
 
+  <!-- Lista de Tarefas -->
   <ul>
     <li *ngFor="let task of tasks">
       <mat-card>
@@ -101,13 +103,16 @@
         </mat-card-header>
         <mat-card-content>
           <p>{{ task.description }}</p>
-          <p>Due Date: {{ task.dueDate | date }}</p>
-          <p>Status: {{ task.status }}</p>
+          <p>Due Date: {{ task.dueDate | date:'dd/MM/yyyy' }}</p>
+          <p>Status: {{ getStatusLabel(task.status) }}</p>
         </mat-card-content>
         <mat-card-actions>
           <button mat-button (click)="startEdit(task)">Editar</button>
           <button mat-button color="warn" (click)="deleteTask(task.id)">
             Deletar
+          </button>
+          <button mat-button (click)="markAsCompleted(task)" [disabled]="task.status === 'completed'">
+            Concluir
           </button>
         </mat-card-actions>
       </mat-card>
